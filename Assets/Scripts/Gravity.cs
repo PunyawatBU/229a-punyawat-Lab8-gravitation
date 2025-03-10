@@ -6,23 +6,23 @@ public class Gravity : MonoBehaviour
 {
     private Rigidbody rb;
     private const float G = 0.00674f;
-    public static List<Gravity> GravityObjectList;
+    public static List<Gravity> gravityObjectList;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
 
-        if (GravityObjectList == null)
+        if (gravityObjectList == null)
         {
-            GravityObjectList = new List<Gravity>();
+            gravityObjectList = new List<Gravity>();
         }
         
-        GravityObjectList.Add(this);
+        gravityObjectList.Add(this);
     }
 
     private void FixedUpdate()
     {
-        foreach (var obj in GravityObjectList)
+        foreach (Gravity obj in gravityObjectList)
         {
             Attract(obj);
         }
@@ -30,7 +30,7 @@ public class Gravity : MonoBehaviour
 
     void Attract(Gravity other)
     {
-        Rigidbody rbOther = GetComponent<Rigidbody>();
+        Rigidbody rbOther = other.rb;
 
         Vector3 direction = rb.position - rbOther.position;
 
@@ -41,6 +41,7 @@ public class Gravity : MonoBehaviour
         float forceMagnitude = G * (rb.mass * rbOther.mass)/ Mathf.Pow(distance,2);
 
         Vector3 force = forceMagnitude * direction.normalized;
+        rbOther.AddForce(force);
 
     }
 }
