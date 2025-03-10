@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gravity : MonoBehaviour
 {
     private Rigidbody rb;
-    private const float G = 0.00674f;
+    private const float G = 0.0674f;
     public static List<Gravity> gravityObjectList;
 
     private void Awake()
